@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeoutException;
 
+import com.alibaba.druid.filter.config.ConfigTools;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,7 +70,18 @@ public class CanalRabbitMQProducer extends AbstractMQProducer implements CanalMQ
                 mqProperties.getAliyunUid()));
         } else {
             factory.setUsername(rabbitMQProperties.getUsername());
-            factory.setPassword(rabbitMQProperties.getPassword());
+            // 密码支持加密 使用druid加密方式
+            if (rabbitMQProperties.isEnableDruid()) {
+                try {
+                    factory.setPassword(ConfigTools.decrypt(rabbitMQProperties.getPwdPublicKey(), rabbitMQProperties.getPassword()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new CanalException("password error", e);
+                }
+            }else {
+                factory.setPassword(rabbitMQProperties.getPassword());
+            }
+
         }
         factory.setVirtualHost(rabbitMQProperties.getVirtualHost());
         try {

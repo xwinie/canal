@@ -15,6 +15,8 @@ public class RabbitMQProducerConfig extends MQProperties {
     private String exchange;
     private String username;
     private String password;
+    private String            pwdPublicKey;       //公钥
+    private boolean           enableDruid;        //是否使用druid加密解密数据库密码
 
     public String getHost() {
         return host;
@@ -54,5 +56,21 @@ public class RabbitMQProducerConfig extends MQProperties {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isEnableDruid() {
+        return enableDruid;
+    }
+
+    public void setEnableDruid(boolean enableDruid) {
+        this.enableDruid = enableDruid;
+    }
+
+    public String getPwdPublicKey() {
+        return pwdPublicKey;
+    }
+
+    public void setPwdPublicKey(String pwdPublicKey) {
+        this.pwdPublicKey = pwdPublicKey;
     }
 }
