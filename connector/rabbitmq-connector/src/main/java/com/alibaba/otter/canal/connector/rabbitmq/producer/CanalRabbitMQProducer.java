@@ -70,13 +70,14 @@ public class CanalRabbitMQProducer extends AbstractMQProducer implements CanalMQ
                 mqProperties.getAliyunUid()));
         } else {
             factory.setUsername(rabbitMQProperties.getUsername());
+
             // 密码支持加密 使用druid加密方式
             if (rabbitMQProperties.isEnableDruid()) {
                 try {
                     factory.setPassword(ConfigTools.decrypt(rabbitMQProperties.getPwdPublicKey(), rabbitMQProperties.getPassword()));
                 } catch (Exception e) {
                     e.printStackTrace();
-                    throw new CanalException("password error", e);
+                    throw new CanalException("Start RabbitMQ pwd error", e);
                 }
             }else {
                 factory.setPassword(rabbitMQProperties.getPassword());
@@ -117,6 +118,14 @@ public class CanalRabbitMQProducer extends AbstractMQProducer implements CanalMQ
         String password = PropertiesUtils.getProperty(properties, RabbitMQConstants.RABBITMQ_PASSWORD);
         if (!StringUtils.isEmpty(password)) {
             rabbitMQProperties.setPassword(password);
+        }
+        String enableDruid = PropertiesUtils.getProperty(properties, RabbitMQConstants.RABBITMQ_ENABLEDRUID);
+        if (!StringUtils.isEmpty(password)) {
+            rabbitMQProperties.setEnableDruid(Boolean.parseBoolean(enableDruid));
+        }
+        String pwdPublicKey = PropertiesUtils.getProperty(properties, RabbitMQConstants.RABBITMQ_PWDPUBLICKEY);
+        if (!StringUtils.isEmpty(pwdPublicKey)) {
+            rabbitMQProperties.setPwdPublicKey(pwdPublicKey);
         }
     }
 

@@ -1,5 +1,7 @@
 package com.alibaba.otter.canal.connector.rabbitmq.config;
 
+import com.alibaba.druid.filter.config.ConfigTools;
+import com.alibaba.otter.canal.common.CanalException;
 import com.alibaba.otter.canal.connector.core.config.MQProperties;
 
 /**
@@ -15,8 +17,8 @@ public class RabbitMQProducerConfig extends MQProperties {
     private String exchange;
     private String username;
     private String password;
-    private String            pwdPublicKey;       //公钥
-    private boolean           enableDruid;        //是否使用druid加密解密数据库密码
+    private String pwdPublicKey;       //公钥
+    private boolean enableDruid;        //是否使用druid加密解密数据库密码
 
     public String getHost() {
         return host;
@@ -55,15 +57,7 @@ public class RabbitMQProducerConfig extends MQProperties {
     }
 
     public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean isEnableDruid() {
-        return enableDruid;
-    }
-
-    public void setEnableDruid(boolean enableDruid) {
-        this.enableDruid = enableDruid;
+            this.password = password;
     }
 
     public String getPwdPublicKey() {
@@ -72,5 +66,13 @@ public class RabbitMQProducerConfig extends MQProperties {
 
     public void setPwdPublicKey(String pwdPublicKey) {
         this.pwdPublicKey = pwdPublicKey;
+    }
+
+    public boolean isEnableDruid() {
+        return enableDruid;
+    }
+
+    public void setEnableDruid(boolean enableDruid) {
+        this.enableDruid = enableDruid;
     }
 }
