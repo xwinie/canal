@@ -30,5 +30,5 @@ else
     cd $BASE/../ && mvn clean package -Dmaven.test.skip -Denv=release && cd $current_path ;
     cp $BASE/../target/canal.deployer-*.tar.gz $BASE/
 #    docker build --no-cache -t canal/canal-server $BASE/
-    docker build --no-cache  -t registry.cn-shenzhen.aliyuncs.com/yfsz-test/canal-server-1.16.20220528
+    docker build --no-cache  -t registry.cn-shenzhen.aliyuncs.com/yfsz-test/canal-server:1.16.20220528 $BASE/
 fi
